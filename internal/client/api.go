@@ -11,7 +11,6 @@ import (
 )
 
 type Client struct {
-	hostname   string
 	httpClient *http.Client
 }
 
@@ -29,7 +28,7 @@ func (s *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	}
 
 	if r.StatusCode < 200 || r.StatusCode >= 300 {
-		return r, errors.New("Not 2xx")
+		return r, errors.New("not 2xx")
 	}
 
 	err = json.Unmarshal(body, v)
@@ -62,7 +61,7 @@ func (s *Client) MakeRequest(ctx context.Context, request Request, response inte
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	_, err = s.Do(req, response)
+	_, err = s.Do(req, response) //nolint:bodyclose
 
 	return err
 }

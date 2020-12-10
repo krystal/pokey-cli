@@ -53,10 +53,9 @@ func runCreateAuthority(cmd *cobra.Command, args []string) error {
 		},
 	}
 
-	response := &client.CreateAuthorityResponse{}
-	err = apiClient.MakeRequest(ctx, request, response)
+	response, err := apiClient.CreateAuthority(ctx, request)
 	if err != nil {
-		return fmt.Errorf("could not make the authority: %w", err)
+		return fmt.Errorf("could not create authority: %w", err)
 	}
 
 	fmt.Printf("Created new authority with ID %s\n", response.Authority.ID)

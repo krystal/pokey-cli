@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/krystal/pokey-cli/internal/pokey"
@@ -25,4 +26,14 @@ func (s *CreateAuthorityRequest) URL() string {
 
 func (s *CreateAuthorityRequest) HTTPMethod() string {
 	return "POST"
+}
+
+func (s *Client) CreateAuthority(ctx context.Context, request *CreateAuthorityRequest) (*CreateAuthorityResponse, error) {
+	response := &CreateAuthorityResponse{}
+	err := s.MakeRequest(ctx, request, response)
+	if err != nil {
+		return response, fmt.Errorf("could not make the authority: %w", err)
+	}
+
+	return response, nil
 }
