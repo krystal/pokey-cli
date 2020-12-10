@@ -21,9 +21,10 @@ var (
 	apiClient     *client.Client
 	configManager *configmanager.Manager
 	rootCmd       = &cobra.Command{
-		Use:   "pokey",
-		Short: "Pokey PKI tool",
-		Long:  `Pokey is a command line tool for the pokey PKI API.`,
+		Use:          "pokey",
+		Short:        "Pokey PKI tool",
+		Long:         `Pokey is a command line tool for the pokey PKI API.`,
+		SilenceUsage: true,
 	}
 )
 
@@ -43,5 +44,8 @@ func initConfigManager() {
 }
 
 func main() {
-	rootCmd.Execute()
+	err := rootCmd.Execute()
+	if err != nil {
+		os.Exit(1)
+	}
 }
