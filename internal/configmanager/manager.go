@@ -17,6 +17,7 @@ type Authority struct {
 	ID          string `yaml:"id"`
 	Secret      string `yaml:"secret"`
 	Certificate string `yaml:"certificate"`
+	ConfigPath  string `yaml:"-"`
 }
 
 type Manager struct {
@@ -37,7 +38,7 @@ func (cm *Manager) Authority(name string) (*Authority, error) {
 		return nil, nil
 	}
 
-	authority := &Authority{}
+	authority := &Authority{ConfigPath: path}
 	err = yaml.Unmarshal(file, authority)
 
 	return authority, err

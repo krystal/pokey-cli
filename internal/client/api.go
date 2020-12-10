@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -28,7 +28,7 @@ func (s *Client) Do(req *http.Request, v interface{}) (*http.Response, error) {
 	}
 
 	if r.StatusCode < 200 || r.StatusCode >= 300 {
-		return r, errors.New("not 2xx")
+		return r, fmt.Errorf("got %d: %s", r.StatusCode, string(body))
 	}
 
 	err = json.Unmarshal(body, v)

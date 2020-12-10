@@ -59,8 +59,7 @@ func runCreateAuthority(cmd *cobra.Command, args []string) error {
 	}
 
 	fmt.Printf("Created new authority with ID %s\n", response.Authority.ID)
-	fmt.Printf("Saved configuration as %s\n\n", authorityName)
-	fmt.Printf("Get certificate using `pokey ca %s`\n", authorityName)
+	fmt.Printf("Print the CA certificate using by running `pokey ca %s`\n", authorityName)
 
 	authority = &configmanager.Authority{
 		Hostname:    apiHost,
