@@ -2,6 +2,12 @@
 
 This file contains all the latest changes and updates to Pokey CLI.
 
+## 1.1.0
+
+### Features
+
+- --config-root ([1e7de1](https://github.com/krystal/pokey-cli/commit/1e7de12943d8cac3a46e5b58dd9434d312e04bb4))
+
 ## 1.0.2
 
 ## 1.0.1
