@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/krystal/pokey-cli/internal/client"
 	"github.com/krystal/pokey-cli/internal/configmanager"
@@ -20,6 +21,7 @@ var (
 	ctx           context.Context
 	apiClient     *client.Client
 	configManager *configmanager.Manager
+	configRoot    string
 	rootCmd       = &cobra.Command{
 		Use:          "pokey",
 		Short:        "Pokey PKI tool",
@@ -30,6 +32,10 @@ var (
 
 func init() {
 	cobra.OnInitialize(initConfigManager, initClient)
+
+	rootFlags := rootCmd.PersistentFlags()
+	rootFlags.StringVar(&configRoot, "config-root", fmt.Sprintf("%s/.pokey", os.Getenv("HOME")),
+		"Path to configuration files")
 }
 
 func initClient() {
@@ -38,9 +44,8 @@ func initClient() {
 }
 
 func initConfigManager() {
-	configManager = configmanager.New(
-		fmt.Sprintf("%s/.pokey", os.Getenv("HOME")),
-	)
+	path, _ := filepath.Abs(configRoot)
+	configManager = configmanager.New(path)
 }
 
 func main() {
